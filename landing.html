@@ -414,17 +414,34 @@
     .faq-body-inner p { padding-bottom: 22px; max-width: 68ch; }
 
     /* ── CLOSE ──────────────────────────────────────────────────── */
+    #close {
+      border-top: 1px solid var(--hair);
+      padding: clamp(96px, 12vw, 150px) 0;
+    }
     #close-band {
-      padding: clamp(80px, 10vw, 136px) var(--g);
-      text-align: center; border-top: 1px solid var(--hair);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     #close-hl {
-      font-size: clamp(2.2rem, 6.5vw, 5rem);
-      font-weight: 300; letter-spacing: -.05em;
-      line-height: .92; max-width: 16ch;
-      margin: 0 auto 36px;
+      font-size: clamp(2.4rem, 6.2vw, 4.8rem);
+      font-weight: 300;
+      letter-spacing: -.035em;
+      line-height: 1.12;
+      max-width: 22ch;
+      margin: 0 auto;
+      color: var(--ink);
     }
-    #close-btns { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+    #close-btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
 
     /* ── FOOTER ─────────────────────────────────────────────────── */
     #footer {
@@ -641,15 +658,17 @@
 </section>
 
 <!-- ── CLOSE ──────────────────────────────────────────────────── -->
-<div id="close">
-  <div id="close-band" class="reveal">
-    <p id="close-hl">measure competency,<br>not completion</p>
-    <div id="close-btns">
-      <a href="/login" class="btn btn-primary"  id="cta-demo">Request a Demo</a>
-      <a href="#faq" class="btn btn-secondary" id="cta-talk">Talk to Us</a>
+<section id="close" aria-label="Call to action">
+  <div class="wrap">
+    <div id="close-band" class="reveal">
+      <h2 id="close-hl">measure competency,<br>not completion</h2>
+      <div id="close-btns">
+        <a href="/login" class="btn btn-primary"  id="cta-demo">Request a Demo</a>
+        <a href="#faq"   class="btn btn-secondary" id="cta-talk">Talk to Us</a>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- ── FOOTER ─────────────────────────────────────────────────── -->
 <footer id="footer">

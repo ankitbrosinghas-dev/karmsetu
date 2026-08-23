@@ -439,9 +439,10 @@ export function LandingPage() {
     .ks-fbi{overflow:hidden;font-size:14.5px;line-height:1.78;color:rgba(255,255,255,.55)}
     .ks-fbi p{padding-bottom:22px;max-width:68ch}
     /* CLOSE */
-    #ks-close{padding:clamp(80px,10vw,136px) var(--gut);text-align:center;border-top:1px solid var(--h)}
-    #ks-chl{font-size:clamp(2.2rem,6.5vw,5rem);font-weight:300;letter-spacing:-.05em;line-height:.92;max-width:16ch;margin:0 auto 36px}
-    #ks-cbtns{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+    #ks-close{border-top:1px solid var(--h);padding:clamp(96px,12vw,150px) 0}
+    #ks-closei{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    #ks-chl{font-size:clamp(2.4rem,6.2vw,4.8rem);font-weight:300;letter-spacing:-.035em;line-height:1.12;max-width:22ch;margin:0 auto;color:#fff;text-align:center}
+    #ks-cbtns{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:40px}
     /* FOOTER */
     #ks-foot{border-top:1px solid var(--h2);padding:24px var(--gut)}
     #ks-footi{max-width:var(--cap);margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
@@ -629,13 +630,17 @@ export function LandingPage() {
       </section>
 
       {/* CLOSE */}
-      <div id="ks-close" className="ks-reveal">
-        <p id="ks-chl">measure competency,<br/>not completion</p>
-        <div id="ks-cbtns">
-          <button className="ks-btn ks-bp" onClick={goLogin}>Request a Demo</button>
-          <button className="ks-btn ks-bs" onClick={() => scrollTo('ks-faq')}>Talk to Us</button>
+      <section id="ks-close" aria-label="Call to action">
+        <div className="ks-wrap">
+          <div id="ks-closei" className="ks-reveal">
+            <h2 id="ks-chl">measure competency,<br/>not completion</h2>
+            <div id="ks-cbtns">
+              <button className="ks-btn ks-bp" onClick={goLogin}>Request a Demo</button>
+              <button className="ks-btn ks-bs" onClick={() => scrollTo('ks-faq')}>Talk to Us</button>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* FOOTER */}
       <footer id="ks-foot">
