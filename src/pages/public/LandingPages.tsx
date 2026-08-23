@@ -357,35 +357,35 @@ export function LandingPage() {
     #ks-intro-line.show{opacity:1;transform:none}
     #ks-intro-line.lift{opacity:0;transform:translateY(-12px);transition:opacity .35s ease,transform .35s ease}
     /* NAV */
-    #ks-nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(10,10,10,.82);border-bottom:1px solid var(--h2);padding:0 var(--gut)}
-    #ks-nav-i{max-width:var(--cap);margin:0 auto;height:52px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-    .ks-mark{font-family:'Inter',sans-serif;font-weight:400;font-size:16px;letter-spacing:-.02em;color:#fff;text-decoration:none;flex-shrink:0}
+    #ks-nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);background:rgba(10,10,10,.82);border-bottom:1px solid var(--h2);padding:0 var(--gut)}
+    #ks-nav-i{max-width:var(--cap);margin:0 auto;height:60px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .ks-mark{font-family:'Inter',sans-serif;font-weight:500;font-size:16px;letter-spacing:-.02em;color:#fff;text-decoration:none;flex-shrink:0}
     .ks-mark span{color:var(--g)}
-    .ks-navlinks{display:flex;align-items:center;gap:clamp(20px,3vw,40px)}
+    .ks-navlinks{display:flex;align-items:center;gap:clamp(20px,3vw,36px)}
     .ks-nl{font-family:'JetBrains Mono',monospace;font-weight:300;font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--mu);text-decoration:none;transition:color .2s;position:relative;padding-bottom:2px;cursor:pointer}
     .ks-nl::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--g);transform:scaleX(0);transform-origin:left;transition:transform .25s cubic-bezier(.16,1,.3,1)}
     .ks-nl:hover{color:#fff}.ks-nl:hover::after{transform:scaleX(1)}
     /* BUTTONS */
-    .ks-btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;font-family:'JetBrains Mono',monospace;font-weight:300;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:none;border-radius:0;transition:background .2s,color .2s,border-color .2s,transform .15s;white-space:nowrap}
-    .ks-btn:active{transform:scale(.97)}
-    .ks-bp{background:var(--g);color:#fff;border:1px solid var(--g)}.ks-bp:hover{background:var(--gp);border-color:var(--gp)}
-    .ks-bs{background:transparent;color:#fff;border:1px solid var(--h)}.ks-bs:hover{border-color:rgba(255,255,255,.32)}
+    .ks-btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 26px;font-family:'JetBrains Mono',monospace;font-weight:400;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:none;border-radius:3px;transition:background .2s,color .2s,border-color .2s,transform .15s,box-shadow .2s;white-space:nowrap}
+    .ks-btn:active{transform:scale(.98)}
+    .ks-bp{background:var(--g);color:#fff;border:1px solid var(--g);box-shadow:0 4px 20px rgba(99,102,241,.24)}.ks-bp:hover{background:var(--gp);border-color:var(--gp);box-shadow:0 6px 24px rgba(99,102,241,.38)}
+    .ks-bs{background:rgba(255,255,255,.03);color:#fff;border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px)}.ks-bs:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.32)}
     /* HERO */
-    #ks-hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(80px,12vh,130px);padding-bottom:clamp(40px,6vh,80px);overflow:hidden}
+    #ks-hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(84px,13vh,136px);padding-bottom:clamp(60px,9vh,96px);overflow:hidden}
     #ks-hcv{position:absolute;inset:0;width:100%;height:100%;display:block}
     #ks-veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(10,10,10,0) 0%,rgba(10,10,10,.10) 40%,rgba(10,10,10,.88) 78%,rgba(10,10,10,.97) 100%)}
     #ks-root #ks-hcontent{position:relative;z-index:2;padding:0 var(--gut);max-width:var(--cap);margin:0 auto;width:100%}
-    #ks-mbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;border-bottom:1px solid var(--h2);padding-bottom:14px}
-    #ks-meta{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.32);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
-    #ks-metademo{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);text-decoration:none;border:1px solid rgba(255,255,255,.16);padding:5px 14px;white-space:nowrap;flex-shrink:0;transition:color .2s,border-color .2s;cursor:pointer}
-    #ks-metademo:hover{color:#fff;border-color:rgba(255,255,255,.38)}
-    #ks-hl{font-size:clamp(2.6rem,6.8vw,5.6rem);line-height:1.05;letter-spacing:-.03em;font-weight:300;margin-bottom:24px;max-width:18ch}
+    #ks-mbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px;border-bottom:1px solid var(--h2);padding-bottom:16px}
+    #ks-meta{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.35);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+    #ks-metademo{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.60);text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:3px;padding:5px 14px;white-space:nowrap;flex-shrink:0;transition:color .2s,border-color .2s;cursor:pointer}
+    #ks-metademo:hover{color:#fff;border-color:rgba(255,255,255,.45)}
+    #ks-hl{font-size:clamp(2.6rem,6.8vw,5.4rem);line-height:1.06;letter-spacing:-.035em;font-weight:300;margin-bottom:24px;max-width:24ch}
     .ks-glyph{display:inline-block;opacity:0;transform:translateY(.20em);transition:opacity .45s ease,transform .45s cubic-bezier(.16,1,.3,1)}
     .ks-glyph.risen{opacity:1;transform:none}
-    #ks-para{max-width:46ch;font-size:15.5px;line-height:1.75;color:rgba(255,255,255,.68);margin-bottom:44px}
-    #ks-btns{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:8px}
+    #ks-para{max-width:54ch;font-size:16px;line-height:1.7;color:rgba(255,255,255,.70);margin-bottom:38px}
+    #ks-btns{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
     /* SCROLL HINT */
-    #ks-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:ksHF 1s .5s forwards;z-index:3;pointer-events:none;transition:opacity .4s}
+    #ks-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:ksHF 1s .5s forwards;z-index:3;pointer-events:none;transition:opacity .4s}
     #ks-hint span{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28)}
     #ks-hint svg{width:14px;height:14px;stroke:rgba(255,255,255,.28);animation:ksChev 1.6s ease-in-out infinite}
     @keyframes ksHF{to{opacity:1}}
