@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --ground:  #0A0A0A;
+    --ground2: #0F0F11;
+    --panel:   #131316;
+    --panel2:  #1A1A1F;
+    --border:  rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.12);
+    --ink:     #FFFFFF;
+    --muted:   #71717A;
+    --accent:  #6366F1;
+    --accent2: #4338CA;
+  }
+
+  body {
+    background-color: var(--ground);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

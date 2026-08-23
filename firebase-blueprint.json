@@ -1,0 +1,72 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile containing their role and details",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "role": {
+          "type": "string",
+          "enum": ["LEARNER", "MANAGER", "ADMIN"]
+        },
+        "department": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "designation": {
+          "type": "string",
+          "maxLength": 100
+        }
+      },
+      "required": ["name", "role", "department", "designation"]
+    },
+    "Competency": {
+      "title": "Competency",
+      "description": "A user's competency level in a specific area",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "category": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "mastery": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxLength": 20
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Critical Gap", "Needs Attention", "Developing", "Strong"]
+        },
+        "userId": {
+          "type": "string",
+          "maxLength": 128
+        }
+      },
+      "required": ["name", "category", "mastery", "prerequisites", "status", "userId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profiles, keyed by Firebase Auth UID"
+    },
+    "/competencies/{competencyId}": {
+      "schema": { "$ref": "#/entities/Competency" },
+      "description": "Competency records for users"
+    }
+  }
+}
