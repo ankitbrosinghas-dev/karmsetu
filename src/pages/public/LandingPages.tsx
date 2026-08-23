@@ -366,7 +366,7 @@ export function LandingPage() {
     .ks-nl::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--g);transform:scaleX(0);transform-origin:left;transition:transform .25s cubic-bezier(.16,1,.3,1)}
     .ks-nl:hover{color:#fff}.ks-nl:hover::after{transform:scaleX(1)}
     /* BUTTONS */
-    .ks-btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 22px;font-family:'JetBrains Mono',monospace;font-weight:300;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:none;border-radius:0;transition:background .2s,color .2s,border-color .2s,transform .15s;white-space:nowrap}
+    .ks-btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;font-family:'JetBrains Mono',monospace;font-weight:300;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:none;border-radius:0;transition:background .2s,color .2s,border-color .2s,transform .15s;white-space:nowrap}
     .ks-btn:active{transform:scale(.97)}
     .ks-bp{background:var(--g);color:#fff;border:1px solid var(--g)}.ks-bp:hover{background:var(--gp);border-color:var(--gp)}
     .ks-bs{background:transparent;color:#fff;border:1px solid var(--h)}.ks-bs:hover{border-color:rgba(255,255,255,.32)}
@@ -382,8 +382,8 @@ export function LandingPage() {
     #ks-hl{font-size:clamp(2.6rem,6.8vw,5.6rem);line-height:1.05;letter-spacing:-.03em;font-weight:300;margin-bottom:24px;max-width:18ch}
     .ks-glyph{display:inline-block;opacity:0;transform:translateY(.20em);transition:opacity .45s ease,transform .45s cubic-bezier(.16,1,.3,1)}
     .ks-glyph.risen{opacity:1;transform:none}
-    #ks-para{max-width:44ch;font-size:15px;line-height:1.7;color:rgba(255,255,255,.68);margin-bottom:32px}
-    #ks-btns{display:flex;gap:12px;flex-wrap:wrap}
+    #ks-para{max-width:46ch;font-size:15.5px;line-height:1.75;color:rgba(255,255,255,.68);margin-bottom:44px}
+    #ks-btns{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:8px}
     /* SCROLL HINT */
     #ks-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:ksHF 1s .5s forwards;z-index:3;pointer-events:none;transition:opacity .4s}
     #ks-hint span{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28)}
@@ -441,7 +441,7 @@ export function LandingPage() {
     /* CLOSE */
     #ks-close{padding:clamp(80px,10vw,136px) var(--gut);text-align:center;border-top:1px solid var(--h)}
     #ks-chl{font-size:clamp(2.2rem,6.5vw,5rem);font-weight:300;letter-spacing:-.05em;line-height:.92;max-width:16ch;margin:0 auto 36px}
-    #ks-cbtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    #ks-cbtns{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:12px}
     /* FOOTER */
     #ks-foot{border-top:1px solid var(--h2);padding:24px var(--gut)}
     #ks-footi{max-width:var(--cap);margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
