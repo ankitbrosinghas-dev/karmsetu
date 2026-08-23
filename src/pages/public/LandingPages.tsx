@@ -481,8 +481,9 @@ export function LandingPage() {
       {/* NAV */}
       <nav id="ks-nav" aria-label="Main navigation">
         <div id="ks-nav-i">
-          <a className="ks-mark" href="#" onClick={e => { e.preventDefault(); window.scrollTo({ top:0, behavior:'smooth' }); }}>
-            Karm<span>Setu</span>
+          <a className="ks-mark" href="#" onClick={e => { e.preventDefault(); window.scrollTo({ top:0, behavior:'smooth' }); }} style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+            <img src="/logo.png" alt="KarmSetu Logo" style={{ width: 28, height: 28, objectFit: 'contain', borderRadius: 4 }} />
+            <span>Karm<span>Setu</span></span>
           </a>
           <div className="ks-navlinks">
             <span className="ks-nl" onClick={() => scrollTo('ks-engine')}>Platform</span>
@@ -699,12 +700,11 @@ export function LoginPage() {
       }}>
         {/* Header */}
         <div style={{ background: '#131316', borderBottom: '1px solid rgba(255,255,255,.08)', padding: '36px 32px', textAlign: 'center' }}>
-          <div style={{
-            width: 44, height: 44, margin: '0 auto 16px',
-            background: 'rgba(99,102,241,.15)', border: '1px solid rgba(99,102,241,.35)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: '#6366F1', fontWeight: 500, fontSize: 16, letterSpacing: '.05em',
-          }}>KS</div>
+          <img 
+            src="/logo.png" 
+            alt="KarmSetu Logo" 
+            style={{ width: 68, height: 68, objectFit: 'contain', margin: '0 auto 16px', display: 'block' }} 
+          />
           <h1 style={{ fontSize: 24, fontWeight: 300, letterSpacing: '-.03em', color: '#fff' }}>KarmSetu</h1>
           <p style={{ ...mono, fontSize: 9, color: 'rgba(255,255,255,.40)', marginTop: 6 }}>Competency Intelligence Platform</p>
         </div>
