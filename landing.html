@@ -154,7 +154,9 @@
     /* ── HERO ───────────────────────────────────────────────────── */
     #hero {
       position: relative; min-height: 100svh;
-      display: flex; flex-direction: column; justify-content: flex-end;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: clamp(80px, 12vh, 130px);
+      padding-bottom: clamp(40px, 6vh, 80px);
       overflow: hidden;
     }
     #hero-canvas {
@@ -176,7 +178,7 @@
 
     #hero-content {
       position: relative; z-index: 2;
-      padding: 52px var(--g) clamp(48px, 7vw, 88px);
+      padding: 0 var(--g);
       max-width: var(--cap); margin: 0 auto; width: 100%;
     }
 
@@ -698,15 +700,16 @@ function hideScrollHint() {
 
 /* ── HEADLINE GLYPHS ─────────────────────────────────────────── */
 function buildGlyphs() {
-  const el   = document.getElementById('hero-headline');
+  const el = document.getElementById('hero-headline');
   if (!el) return;
   const text  = 'from training delivery to competency intelligence';
   const words = text.split(' ');
   let delay   = 0;
 
-  words.forEach((word, wi) => {
+  el.innerHTML = '';
+  words.forEach((word) => {
     const wSpan = document.createElement('span');
-    wSpan.style.cssText = 'display:inline-block;white-space:nowrap;';
+    wSpan.style.cssText = 'display:inline-block;white-space:nowrap;margin-right:0.28em;';
     word.split('').forEach(ch => {
       const s = document.createElement('span');
       s.className = 'glyph';
@@ -716,11 +719,6 @@ function buildGlyphs() {
       wSpan.appendChild(s);
     });
     el.appendChild(wSpan);
-    if (wi < words.length - 1) {
-      const sp = document.createElement('span');
-      sp.style.cssText = 'display:inline-block;width:.22em;';
-      el.appendChild(sp);
-    }
   });
 
   requestAnimationFrame(() => requestAnimationFrame(() => {

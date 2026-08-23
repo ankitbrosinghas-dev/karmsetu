@@ -230,9 +230,9 @@ export function LandingPage() {
         el.innerHTML = '';
         const words = 'from training delivery to competency intelligence'.split(' ');
         let delay = 0;
-        words.forEach((word, wi) => {
+        words.forEach((word) => {
           const ws = document.createElement('span');
-          ws.style.cssText = 'display:inline-block;white-space:nowrap;';
+          ws.style.cssText = 'display:inline-block;white-space:nowrap;margin-right:0.28em;';
           word.split('').forEach(ch => {
             const s = document.createElement('span');
             s.className = 'ks-glyph'; s.textContent = ch;
@@ -240,10 +240,6 @@ export function LandingPage() {
             ws.appendChild(s);
           });
           el.appendChild(ws);
-          if (wi < words.length - 1) {
-            const sp = document.createElement('span');
-            sp.style.cssText = 'display:inline-block;width:.22em;'; el.appendChild(sp);
-          }
         });
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
@@ -375,10 +371,10 @@ export function LandingPage() {
     .ks-bp{background:var(--g);color:#fff;border:1px solid var(--g)}.ks-bp:hover{background:var(--gp);border-color:var(--gp)}
     .ks-bs{background:transparent;color:#fff;border:1px solid var(--h)}.ks-bs:hover{border-color:rgba(255,255,255,.32)}
     /* HERO */
-    #ks-hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+    #ks-hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(80px,12vh,130px);padding-bottom:clamp(40px,6vh,80px);overflow:hidden}
     #ks-hcv{position:absolute;inset:0;width:100%;height:100%;display:block}
     #ks-veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(10,10,10,0) 0%,rgba(10,10,10,.10) 40%,rgba(10,10,10,.88) 78%,rgba(10,10,10,.97) 100%)}
-    #ks-root #ks-hcontent{position:relative;z-index:2;padding:52px var(--gut) clamp(48px,7vw,88px);max-width:var(--cap);margin:0 auto;width:100%}
+    #ks-root #ks-hcontent{position:relative;z-index:2;padding:0 var(--gut);max-width:var(--cap);margin:0 auto;width:100%}
     #ks-mbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;border-bottom:1px solid var(--h2);padding-bottom:14px}
     #ks-meta{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.32);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
     #ks-metademo{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);text-decoration:none;border:1px solid rgba(255,255,255,.16);padding:5px 14px;white-space:nowrap;flex-shrink:0;transition:color .2s,border-color .2s;cursor:pointer}
