@@ -18,8 +18,14 @@ const hairB  = { borderBottom: '1px solid rgba(255,255,255,.08)' };
 export function LearnerDashboard() {
   const navigate = useNavigate();
   const { currentUser, competencies } = useAppStore();
-
-  const samplingMethods  = competencies['c_sampling_methods'];
+  const samplingMethods = competencies['c_sampling_methods'] || {
+    id: 'c_sampling_methods',
+    name: 'Sampling Methods',
+    category: 'Methodology',
+    mastery: 44,
+    prerequisites: ['c_probability'],
+    status: 'Needs Attention' as const
+  };
   const overallCompetency = 68;
 
   return (

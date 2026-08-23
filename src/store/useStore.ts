@@ -131,7 +131,18 @@ export const useAppStore = create<AppState>((set, get) => ({
 
       set({ currentUser, competencies });
     } catch (error) {
-      console.error('Error initializing from Firestore:', error);
+      console.warn('Firestore sync failed, activating local offline session:', error);
+      const fallbackUser: User = {
+        id: uid,
+        name: name || (role === 'LEARNER' ? 'Aarav Sharma' : role === 'MANAGER' ? 'Training Manager' : 'System Administrator'),
+        role: role,
+        department: 'Statistical Operations',
+        designation: designation || (role === 'LEARNER' ? 'Statistical Officer' : role === 'MANAGER' ? 'Director of Training' : 'System Administrator')
+      };
+      set({ 
+        currentUser: fallbackUser, 
+        competencies: { ...DEMO_COMPETENCIES } 
+      });
     }
   }
 }));
