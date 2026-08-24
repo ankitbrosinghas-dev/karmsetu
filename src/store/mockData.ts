@@ -6,6 +6,12 @@ export interface User {
   role: Role;
   department: string;
   designation: string;
+  jobRole?: string;
+  currentAssignment?: string;
+  educationalQualifications?: string;
+  workExperience?: string;
+  previousTrainings?: string[];
+  competencyProfileGeneratedAt?: string;
 }
 
 export interface Competency {
@@ -40,8 +46,19 @@ export const DEMO_USER: User = {
   id: 'u1',
   name: 'Aarav Sharma',
   role: 'LEARNER',
-  department: 'Statistical Operations',
+  department: 'National Sample Survey Office (NSSO)',
   designation: 'Statistical Officer',
+  jobRole: 'Field Survey Supervisor & Quality Auditor',
+  currentAssignment: 'Periodic Labour Force Survey (PLFS) 2026',
+  educationalQualifications: 'M.Sc. Statistics',
+  workExperience: '3-5 Years in Official Statistics',
+  previousTrainings: [
+    'iGOT Karmayogi - Ethics & Governance in Public Service',
+    'Sampling Theory & Design (NASA)',
+    'Computer Assisted Personal Interviewing (CAPI) Tools',
+    'Data Quality & Consistency Verification'
+  ],
+  competencyProfileGeneratedAt: new Date().toISOString(),
 };
 
 export const DEMO_COMPETENCIES: Record<string, Competency> = {

@@ -33,13 +33,66 @@ export function LearnerDashboard() {
       <style>{`@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}`}</style>
 
       {/* Page header */}
-      <header style={{ ...hairB, paddingBottom: 24 }}>
-        <h1 style={{ fontSize: 'clamp(1.6rem,3.5vw,2.2rem)', fontWeight: 300, letterSpacing: '-.04em', lineHeight: 1.1 }}>
-          {getGreeting()}, {currentUser?.name}
-        </h1>
-        <p style={{ ...mono, fontSize: 9, color: 'rgba(255,255,255,.35)', marginTop: 8 }}>
-          Your Competency Intelligence Dashboard
-        </p>
+      <header style={{ ...hairB, paddingBottom: 24, display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+          <div>
+            <h1 style={{ fontSize: 'clamp(1.6rem,3.5vw,2.2rem)', fontWeight: 300, letterSpacing: '-.04em', lineHeight: 1.1 }}>
+              {getGreeting()}, {currentUser?.name}
+            </h1>
+            <p style={{ ...mono, fontSize: 9, color: 'rgba(255,255,255,.35)', marginTop: 8 }}>
+              {currentUser?.designation} &middot; {currentUser?.department || 'National Sample Survey Office (NSSO)'}
+            </p>
+          </div>
+          <Link
+            to="/learner/passport"
+            style={{
+              ...mono, fontSize: 9, padding: '8px 16px',
+              background: 'rgba(99,102,241,.10)', border: '1px solid rgba(99,102,241,.30)',
+              color: '#818CF8', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 6,
+            }}
+          >
+            <BookOpen size={12} /> View Competency Passport
+          </Link>
+        </div>
+
+        {/* Official Profile Intelligence Summary Bar */}
+        {(currentUser?.jobRole || currentUser?.currentAssignment || currentUser?.educationalQualifications) && (
+          <div style={{
+            ...panel2, padding: '14px 18px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '14px 24px',
+            borderLeft: '3px solid #6366F1'
+          }}>
+            {currentUser?.jobRole && (
+              <div>
+                <div style={{ ...mono, fontSize: 8, color: 'rgba(255,255,255,.35)', marginBottom: 2 }}>Job Role</div>
+                <div style={{ fontSize: 12, color: '#fff', fontWeight: 400 }}>{currentUser.jobRole}</div>
+              </div>
+            )}
+            {currentUser?.currentAssignment && (
+              <div>
+                <div style={{ ...mono, fontSize: 8, color: 'rgba(255,255,255,.35)', marginBottom: 2 }}>Assignment</div>
+                <div style={{ fontSize: 12, color: '#6366F1', fontWeight: 400 }}>{currentUser.currentAssignment}</div>
+              </div>
+            )}
+            {currentUser?.educationalQualifications && (
+              <div>
+                <div style={{ ...mono, fontSize: 8, color: 'rgba(255,255,255,.35)', marginBottom: 2 }}>Education</div>
+                <div style={{ fontSize: 12, color: 'rgba(255,255,255,.8)' }}>{currentUser.educationalQualifications}</div>
+              </div>
+            )}
+            {currentUser?.workExperience && (
+              <div>
+                <div style={{ ...mono, fontSize: 8, color: 'rgba(255,255,255,.35)', marginBottom: 2 }}>Experience</div>
+                <div style={{ fontSize: 12, color: 'rgba(255,255,255,.8)' }}>{currentUser.workExperience}</div>
+              </div>
+            )}
+            {currentUser?.previousTrainings && currentUser.previousTrainings.length > 0 && (
+              <div>
+                <div style={{ ...mono, fontSize: 8, color: 'rgba(255,255,255,.35)', marginBottom: 2 }}>Trainings Synced</div>
+                <div style={{ fontSize: 12, color: '#34D399' }}>{currentUser.previousTrainings.length} Modules Registered</div>
+              </div>
+            )}
+          </div>
+        )}
       </header>
 
       {/* Stats row */}

@@ -664,63 +664,168 @@ export function LandingPage() {
 ───────────────────────────────────────────────────────────────── */
 export function LoginPage() {
   const navigate = useNavigate();
-  const { login } = useAppStore();
-  const { signInWithGoogle, user } = useAuth();
   const [error, setError] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [loadingStep, setLoadingStep] = React.useState<string>('');
   const [selectedRole, setSelectedRole] = React.useState<'LEARNER' | 'MANAGER' | 'ADMIN' | null>(null);
-  const [designation, setDesignation] = React.useState<string>('');
+
+  // Learner Competency Profile Attributes
+  const [name, setName] = React.useState<string>('Aarav Sharma');
+  const [designation, setDesignation] = React.useState<string>('Statistical Officer');
+  const [department, setDepartment] = React.useState<string>('National Sample Survey Office (NSSO)');
+  const [jobRole, setJobRole] = React.useState<string>('Field Survey Supervisor & Quality Auditor');
+  const [currentAssignment, setCurrentAssignment] = React.useState<string>('Periodic Labour Force Survey (PLFS) 2026');
+  const [educationalQualifications, setEducationalQualifications] = React.useState<string>('M.Sc. Statistics');
+  const [workExperience, setWorkExperience] = React.useState<string>('3-5 Years in Official Statistics');
+  const [previousTrainings, setPreviousTrainings] = React.useState<string[]>([
+    'iGOT Karmayogi - Ethics & Governance in Public Service',
+    'Sampling Theory & Design (NASA)',
+    'Computer Assisted Personal Interviewing (CAPI) Tools',
+    'Data Quality & Consistency Verification'
+  ]);
+  const [customTraining, setCustomTraining] = React.useState<string>('');
+
+  const availableTrainings = [
+    'iGOT Karmayogi - Ethics & Governance in Public Service',
+    'Sampling Theory & Design (NASA)',
+    'Computer Assisted Personal Interviewing (CAPI) Tools',
+    'Data Quality & Consistency Verification',
+    'R & Python for Official Statistics',
+    'National Statistical Architecture & Metadata Standards',
+    'Consumer Price Index Compilation Methodology',
+  ];
 
   const handleRoleSelect = (role: 'LEARNER' | 'MANAGER' | 'ADMIN') => {
     setSelectedRole(role);
-    if (role === 'LEARNER') setDesignation('Statistical Officer');
-    if (role === 'MANAGER') setDesignation('Training Manager');
-    if (role === 'ADMIN')   setDesignation('System Administrator');
+    if (role === 'LEARNER') {
+      setName('Aarav Sharma');
+      setDesignation('Statistical Officer');
+      setDepartment('National Sample Survey Office (NSSO)');
+      setJobRole('Field Survey Supervisor & Quality Auditor');
+      setCurrentAssignment('Periodic Labour Force Survey (PLFS) 2026');
+      setEducationalQualifications('M.Sc. Statistics');
+      setWorkExperience('3-5 Years in Official Statistics');
+    } else if (role === 'MANAGER') {
+      setName('Dr. Sunita Verma');
+      setDesignation('Director of Training & Capacity Building');
+      setDepartment('Ministry of Statistics and Programme Implementation (MoSPI)');
+    } else if (role === 'ADMIN') {
+      setName('Rajesh Nair');
+      setDesignation('System & iGOT Administrator');
+      setDepartment('National Statistical Systems (NSS) Digital Directorate');
+    }
+  };
+
+  const toggleTraining = (t: string) => {
+    if (previousTrainings.includes(t)) {
+      setPreviousTrainings(previousTrainings.filter(item => item !== t));
+    } else {
+      setPreviousTrainings([...previousTrainings, t]);
+    }
+  };
+
+  const addCustomTraining = () => {
+    if (customTraining.trim() && !previousTrainings.includes(customTraining.trim())) {
+      setPreviousTrainings([...previousTrainings, customTraining.trim()]);
+      setCustomTraining('');
+    }
   };
 
   const handleDemoLogin = async () => {
     if (!selectedRole || isLoading) return;
     try {
-      setIsLoading(true); setError(null);
+      setIsLoading(true);
+      setError(null);
+
+      if (selectedRole === 'LEARNER') {
+        setLoadingStep('Analyzing official credentials & assignment context...');
+        await new Promise(r => setTimeout(r, 600));
+        setLoadingStep('Synthesizing competency baseline from education & trainings...');
+        await new Promise(r => setTimeout(r, 600));
+        setLoadingStep('Building personalized KarmSetu Competency Profile...');
+        await new Promise(r => setTimeout(r, 500));
+      }
+
       const openUid = `open-demo-user-${selectedRole.toLowerCase()}`;
-      await useAppStore.getState().initializeFromFirestore(openUid, 'Demo User', selectedRole, designation);
+      await useAppStore.getState().initializeFromFirestore(openUid, name, selectedRole, designation, {
+        name,
+        designation,
+        department,
+        jobRole,
+        currentAssignment,
+        educationalQualifications,
+        workExperience,
+        previousTrainings,
+      });
+
       navigate(`/${selectedRole.toLowerCase()}/dashboard`);
     } catch (err: any) {
       console.error(err);
       setError(err?.message || 'Failed to sign in. Please try again.');
-    } finally { setIsLoading(false); }
+    } finally {
+      setIsLoading(false);
+      setLoadingStep('');
+    }
   };
 
   const mono = { fontFamily: "'JetBrains Mono', monospace", fontWeight: 300, letterSpacing: '.10em', textTransform: 'uppercase' as const };
+  const inputStyle: React.CSSProperties = {
+    width: '100%',
+    padding: '10px 12px',
+    background: '#131316',
+    border: '1px solid rgba(255,255,255,.12)',
+    color: '#fff',
+    outline: 'none',
+    fontSize: 13,
+    fontFamily: "'Inter', sans-serif",
+    borderRadius: 3,
+  };
+  const labelStyle: React.CSSProperties = {
+    ...mono,
+    fontSize: 9,
+    color: 'rgba(255,255,255,.50)',
+    display: 'block',
+    marginBottom: 6,
+  };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0A0A0A', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24, fontFamily: "'Inter', sans-serif", position: 'relative' }}>
+    <div style={{ minHeight: '100vh', background: '#0A0A0A', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px 16px', fontFamily: "'Inter', sans-serif", position: 'relative' }}>
       <div style={{ position: 'absolute', top: 20, right: 24, zIndex: 10 }}>
         <LanguageSelector variant="landing" />
       </div>
 
       <div style={{
-        width: '100%', maxWidth: 440, background: '#0F0F11',
+        width: '100%',
+        maxWidth: selectedRole === 'LEARNER' ? 680 : 440,
+        background: '#0F0F11',
         border: '1px solid rgba(255,255,255,.08)',
         boxShadow: '0 24px 64px rgba(0,0,0,.60)',
-        overflow: 'hidden', animation: 'fadeIn .4s ease',
+        overflow: 'hidden',
+        animation: 'fadeIn .4s ease',
+        transition: 'max-width .3s ease',
       }}>
         {/* Header */}
-        <div style={{ background: '#131316', borderBottom: '1px solid rgba(255,255,255,.08)', padding: '36px 32px', textAlign: 'center' }}>
+        <div style={{ background: '#131316', borderBottom: '1px solid rgba(255,255,255,.08)', padding: '28px 24px', textAlign: 'center' }}>
           <img 
             src="/logo.png" 
             alt="KarmSetu Logo" 
-            style={{ width: 68, height: 68, objectFit: 'contain', margin: '0 auto 16px', display: 'block' }} 
+            style={{ width: 56, height: 56, objectFit: 'contain', margin: '0 auto 12px', display: 'block' }} 
           />
-          <h1 style={{ fontSize: 24, fontWeight: 300, letterSpacing: '-.03em', color: '#fff' }}>KarmSetu</h1>
-          <p style={{ ...mono, fontSize: 9, color: 'rgba(255,255,255,.40)', marginTop: 6 }}>Competency Intelligence Platform</p>
+          <h1 style={{ fontSize: 22, fontWeight: 300, letterSpacing: '-.03em', color: '#fff' }}>KarmSetu</h1>
+          <p style={{ ...mono, fontSize: 9, color: 'rgba(255,255,255,.40)', marginTop: 4 }}>AI Competency Intelligence Platform &middot; MoSPI</p>
         </div>
 
         {/* Content */}
-        <div style={{ padding: '32px 28px' }}>
-          <div style={{ textAlign: 'center', marginBottom: 24, borderBottom: '1px solid rgba(255,255,255,.06)', paddingBottom: 16 }}>
-            <h2 style={{ fontSize: 16, fontWeight: 400, color: '#fff', letterSpacing: '-.01em' }}>Sign in to continue</h2>
-            <p style={{ ...mono, fontSize: 9, color: 'rgba(255,255,255,.35)', marginTop: 4 }}>Select role for SIH 2026 Prototype</p>
+        <div style={{ padding: selectedRole === 'LEARNER' ? '28px 32px' : '28px 24px' }}>
+          <div style={{ textAlign: 'center', marginBottom: 20, borderBottom: '1px solid rgba(255,255,255,.06)', paddingBottom: 14 }}>
+            <h2 style={{ fontSize: 16, fontWeight: 400, color: '#fff', letterSpacing: '-.01em' }}>
+              {selectedRole === 'LEARNER' ? 'Official Competency Profile Setup' : 'Sign in to continue'}
+            </h2>
+            <p style={{ ...mono, fontSize: 9, color: 'rgba(255,255,255,.35)', marginTop: 4 }}>
+              {selectedRole === 'LEARNER'
+                ? 'System automatically generates a baseline competency profile for every official'
+                : 'Select role for SIH 2026 Prototype'}
+            </p>
           </div>
 
           {error && (
@@ -735,9 +840,9 @@ export function LoginPage() {
           {!selectedRole ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {([
-                ['LEARNER', 'Demo Learner', 'Aarav Sharma • Statistical Officer'],
-                ['MANAGER', 'Demo Training Manager', 'Department of Statistics'],
-                ['ADMIN', 'Demo Admin', 'System & iGOT Integration'],
+                ['LEARNER', 'Official Learner', 'Aarav Sharma • Statistical Officer • Profile Induction'],
+                ['MANAGER', 'Training Manager', 'Department of Statistics • Intelligence View'],
+                ['ADMIN', 'System Admin', 'iGOT Integration & National Settings'],
               ] as const).map(([role, label, sub]) => (
                 <button
                   key={role}
@@ -766,33 +871,232 @@ export function LoginPage() {
                 </button>
               ))}
             </div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+          ) : selectedRole === 'LEARNER' ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {/* Grid 2-cols for Learner Profile */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 14 }}>
+                <div>
+                  <label style={labelStyle}>Official Full Name</label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    placeholder="e.g. Aarav Sharma"
+                    style={inputStyle}
+                  />
+                </div>
+
+                <div>
+                  <label style={labelStyle}>Designation</label>
+                  <input
+                    type="text"
+                    value={designation}
+                    onChange={e => setDesignation(e.target.value)}
+                    placeholder="e.g. Statistical Officer"
+                    style={inputStyle}
+                  />
+                </div>
+
+                <div>
+                  <label style={labelStyle}>Department / Division</label>
+                  <input
+                    type="text"
+                    value={department}
+                    onChange={e => setDepartment(e.target.value)}
+                    placeholder="e.g. National Sample Survey Office (NSSO)"
+                    style={inputStyle}
+                  />
+                </div>
+
+                <div>
+                  <label style={labelStyle}>Job Role</label>
+                  <input
+                    type="text"
+                    value={jobRole}
+                    onChange={e => setJobRole(e.target.value)}
+                    placeholder="e.g. Field Survey Supervisor & Quality Auditor"
+                    style={inputStyle}
+                  />
+                </div>
+
+                <div>
+                  <label style={labelStyle}>Current Assignment / Project</label>
+                  <input
+                    type="text"
+                    value={currentAssignment}
+                    onChange={e => setCurrentAssignment(e.target.value)}
+                    placeholder="e.g. Periodic Labour Force Survey (PLFS) 2026"
+                    style={inputStyle}
+                  />
+                </div>
+
+                <div>
+                  <label style={labelStyle}>Educational Qualifications</label>
+                  <input
+                    type="text"
+                    value={educationalQualifications}
+                    onChange={e => setEducationalQualifications(e.target.value)}
+                    placeholder="e.g. M.Sc. Statistics"
+                    style={inputStyle}
+                  />
+                </div>
+              </div>
+
               <div>
-                <label style={{ ...mono, fontSize: 9, color: 'rgba(255,255,255,.50)', display: 'block', marginBottom: 8 }}>Job Designation</label>
+                <label style={labelStyle}>Work Experience</label>
+                <input
+                  type="text"
+                  value={workExperience}
+                  onChange={e => setWorkExperience(e.target.value)}
+                  placeholder="e.g. 3-5 Years in Official Statistics"
+                  style={inputStyle}
+                />
+              </div>
+
+              {/* Previous Trainings */}
+              <div>
+                <label style={labelStyle}>Previous Trainings & iGOT Courses</label>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 8 }}>
+                  {availableTrainings.map(t => {
+                    const isSelected = previousTrainings.includes(t);
+                    return (
+                      <button
+                        type="button"
+                        key={t}
+                        onClick={() => toggleTraining(t)}
+                        style={{
+                          fontSize: 10,
+                          padding: '5px 9px',
+                          borderRadius: 3,
+                          border: `1px solid ${isSelected ? 'rgba(99,102,241,.6)' : 'rgba(255,255,255,.1)'}`,
+                          background: isSelected ? 'rgba(99,102,241,.15)' : 'rgba(255,255,255,.02)',
+                          color: isSelected ? '#fff' : 'rgba(255,255,255,.5)',
+                          cursor: 'pointer',
+                          textAlign: 'left',
+                          fontFamily: "'Inter', sans-serif",
+                          transition: 'all .15s',
+                        }}
+                      >
+                        {isSelected ? '✓ ' : '+ '}{t}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <input
+                    type="text"
+                    value={customTraining}
+                    onChange={e => setCustomTraining(e.target.value)}
+                    onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addCustomTraining(); } }}
+                    placeholder="Add other completed training..."
+                    style={{ ...inputStyle, flex: 1, padding: '8px 10px', fontSize: 12 }}
+                  />
+                  <button
+                    type="button"
+                    onClick={addCustomTraining}
+                    style={{
+                      padding: '8px 14px',
+                      background: 'rgba(255,255,255,.06)',
+                      border: '1px solid rgba(255,255,255,.12)',
+                      color: '#fff',
+                      cursor: 'pointer',
+                      ...mono,
+                      fontSize: 8,
+                    }}
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+
+              {/* Status Note */}
+              <div style={{
+                background: 'rgba(99,102,241,.06)',
+                border: '1px solid rgba(99,102,241,.2)',
+                padding: '10px 14px',
+                fontSize: 11,
+                color: 'rgba(255,255,255,.7)',
+                lineHeight: 1.5,
+              }}>
+                <span style={{ color: '#6366F1', fontWeight: 500 }}>AI Competency Auto-Profile:</span> KarmSetu will automatically diagnose initial mastery levels, competency prerequisites, and gap clusters based on your official credentials.
+              </div>
+
+              {/* Actions */}
+              <div style={{ display: 'flex', gap: 10, marginTop: 6 }}>
+                <button
+                  type="button"
+                  onClick={() => setSelectedRole(null)}
+                  disabled={isLoading}
+                  style={{
+                    flex: 1, padding: '12px', background: 'transparent',
+                    border: '1px solid rgba(255,255,255,.12)', color: 'rgba(255,255,255,.65)',
+                    cursor: 'pointer', ...mono, fontSize: 9,
+                  }}
+                >
+                  Back
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDemoLogin}
+                  disabled={isLoading || !name.trim() || !designation.trim()}
+                  style={{
+                    flex: 2, padding: '12px', background: '#6366F1',
+                    border: '1px solid #6366F1', color: '#fff',
+                    cursor: 'pointer', ...mono, fontSize: 9,
+                    opacity: (isLoading || !name.trim() || !designation.trim()) ? 0.5 : 1,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  }}
+                >
+                  {isLoading ? (loadingStep || 'Generating Profile...') : 'Generate Competency Profile & Continue'}
+                </button>
+              </div>
+            </div>
+          ) : (
+            /* Manager or Admin Form */
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div>
+                <label style={labelStyle}>Full Name</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  style={inputStyle}
+                />
+              </div>
+              <div>
+                <label style={labelStyle}>Designation</label>
                 <input
                   type="text"
                   value={designation}
                   onChange={e => setDesignation(e.target.value)}
-                  placeholder="e.g. Statistical Officer"
-                  autoFocus
-                  style={{
-                    width: '100%', padding: '12px 14px', background: '#131316',
-                    border: '1px solid rgba(255,255,255,.12)', color: '#fff',
-                    outline: 'none', fontSize: 13, fontFamily: 'inherit',
-                  }}
+                  style={inputStyle}
                 />
               </div>
-              <div style={{ display: 'flex', gap: 10 }}>
+              <div>
+                <label style={labelStyle}>Department / Ministry</label>
+                <input
+                  type="text"
+                  value={department}
+                  onChange={e => setDepartment(e.target.value)}
+                  style={inputStyle}
+                />
+              </div>
+              <div style={{ display: 'flex', gap: 10, marginTop: 4 }}>
                 <button
+                  type="button"
                   onClick={() => setSelectedRole(null)}
+                  disabled={isLoading}
                   style={{
                     flex: 1, padding: '11px', background: 'transparent',
                     border: '1px solid rgba(255,255,255,.12)', color: 'rgba(255,255,255,.65)',
                     cursor: 'pointer', ...mono, fontSize: 9,
                   }}
-                >Back</button>
+                >
+                  Back
+                </button>
                 <button
+                  type="button"
                   onClick={handleDemoLogin}
                   disabled={isLoading || !designation.trim()}
                   style={{
@@ -813,3 +1117,4 @@ export function LoginPage() {
     </div>
   );
 }
+

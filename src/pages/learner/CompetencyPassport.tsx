@@ -38,43 +38,90 @@ export function CompetencyPassport() {
 
       {/* Profile Header Banner */}
       <div style={{
-        ...panel, padding: '32px 36px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        flexWrap: 'wrap', gap: 24, position: 'relative', overflow: 'hidden'
+        ...panel, padding: '32px 36px', display: 'flex', flexDirection: 'column', gap: 24, position: 'relative', overflow: 'hidden'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-          <div style={{
-            width: 64, height: 64, background: 'rgba(99,102,241,.12)',
-            border: '1px solid rgba(99,102,241,.30)', color: '#6366F1',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 24, fontWeight: 500,
-          }}>
-            {currentUser?.name.charAt(0)}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+            <div style={{
+              width: 64, height: 64, background: 'rgba(99,102,241,.12)',
+              border: '1px solid rgba(99,102,241,.30)', color: '#6366F1',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 24, fontWeight: 500,
+            }}>
+              {currentUser?.name.charAt(0)}
+            </div>
+            <div>
+              <h2 style={{ fontSize: 22, fontWeight: 300, color: '#fff', letterSpacing: '-.02em', marginBottom: 4 }}>
+                {currentUser?.name}
+              </h2>
+              <div style={{ ...mono, fontSize: 9, color: 'rgba(255,255,255,.40)', marginBottom: 12 }}>
+                {currentUser?.designation} &middot; {currentUser?.department || 'Department of Statistics'}
+              </div>
+              <div style={{ display: 'flex', gap: 16 }}>
+                <div style={{ ...mono, fontSize: 8, color: '#34D399', display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <Award size={12} /> {strongCount} Mastered
+                </div>
+                <div style={{ ...mono, fontSize: 8, color: '#818CF8', display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <TrendingUp size={12} /> {devCount} Developing
+                </div>
+                <div style={{ ...mono, fontSize: 8, color: '#F43F5E', display: 'flex', alignItems: 'center', gap: 4 }}>
+                  {weakCount} Needs Attention
+                </div>
+              </div>
+            </div>
           </div>
-          <div>
-            <h2 style={{ fontSize: 22, fontWeight: 300, color: '#fff', letterSpacing: '-.02em', marginBottom: 4 }}>
-              {currentUser?.name}
-            </h2>
-            <div style={{ ...mono, fontSize: 9, color: 'rgba(255,255,255,.40)', marginBottom: 12 }}>
-              {currentUser?.designation} &middot; {currentUser?.department || 'Department of Statistics'}
-            </div>
-            <div style={{ display: 'flex', gap: 16 }}>
-              <div style={{ ...mono, fontSize: 8, color: '#34D399', display: 'flex', alignItems: 'center', gap: 4 }}>
-                <Award size={12} /> {strongCount} Mastered
-              </div>
-              <div style={{ ...mono, fontSize: 8, color: '#818CF8', display: 'flex', alignItems: 'center', gap: 4 }}>
-                <TrendingUp size={12} /> {devCount} Developing
-              </div>
-              <div style={{ ...mono, fontSize: 8, color: '#F43F5E', display: 'flex', alignItems: 'center', gap: 4 }}>
-                {weakCount} Needs Attention
-              </div>
-            </div>
+
+          <div style={{ ...panel2, padding: '20px 28px', textAlign: 'center', minWidth: 160 }}>
+            <div style={{ ...mono, fontSize: 8, color: 'rgba(255,255,255,.40)', marginBottom: 4 }}>Aggregate Competency</div>
+            <div style={{ fontSize: 36, fontWeight: 300, color: '#6366F1', letterSpacing: '-.04em' }}>{overallCompetencyMock}%</div>
           </div>
         </div>
 
-        <div style={{ ...panel2, padding: '20px 28px', textAlign: 'center', minWidth: 160 }}>
-          <div style={{ ...mono, fontSize: 8, color: 'rgba(255,255,255,.40)', marginBottom: 4 }}>Aggregate Competency</div>
-          <div style={{ fontSize: 36, fontWeight: 300, color: '#6366F1', letterSpacing: '-.04em' }}>{overallCompetencyMock}%</div>
+        {/* Official Background & Credentials Grid */}
+        <div style={{
+          borderTop: '1px solid rgba(255,255,255,.08)', paddingTop: 18,
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16,
+        }}>
+          <div>
+            <div style={{ ...mono, fontSize: 8, color: 'rgba(255,255,255,.35)', marginBottom: 3 }}>Official Job Role</div>
+            <div style={{ fontSize: 13, color: '#fff', fontWeight: 400 }}>{currentUser?.jobRole || 'Statistical Officer & Field Auditor'}</div>
+          </div>
+          <div>
+            <div style={{ ...mono, fontSize: 8, color: 'rgba(255,255,255,.35)', marginBottom: 3 }}>Current Assignment</div>
+            <div style={{ fontSize: 13, color: '#6366F1', fontWeight: 400 }}>{currentUser?.currentAssignment || 'PLFS Survey Operations'}</div>
+          </div>
+          <div>
+            <div style={{ ...mono, fontSize: 8, color: 'rgba(255,255,255,.35)', marginBottom: 3 }}>Educational Qualification</div>
+            <div style={{ fontSize: 13, color: 'rgba(255,255,255,.85)' }}>{currentUser?.educationalQualifications || 'M.Sc. Statistics'}</div>
+          </div>
+          <div>
+            <div style={{ ...mono, fontSize: 8, color: 'rgba(255,255,255,.35)', marginBottom: 3 }}>Experience in Service</div>
+            <div style={{ fontSize: 13, color: 'rgba(255,255,255,.85)' }}>{currentUser?.workExperience || '3-5 Years'}</div>
+          </div>
         </div>
+
+        {/* Previous Trainings Tags */}
+        {currentUser?.previousTrainings && currentUser.previousTrainings.length > 0 && (
+          <div style={{ borderTop: '1px solid rgba(255,255,255,.06)', paddingTop: 14 }}>
+            <div style={{ ...mono, fontSize: 8, color: 'rgba(255,255,255,.35)', marginBottom: 8 }}>
+              Synchronized Induction & Previous Trainings ({currentUser.previousTrainings.length})
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+              {currentUser.previousTrainings.map((t, idx) => (
+                <span
+                  key={idx}
+                  style={{
+                    fontSize: 11, padding: '4px 10px', background: 'rgba(255,255,255,.03)',
+                    border: '1px solid rgba(255,255,255,.08)', color: 'rgba(255,255,255,.7)',
+                    borderRadius: 3,
+                  }}
+                >
+                  ✓ {t}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Verified Competencies List */}
