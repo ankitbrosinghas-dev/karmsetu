@@ -11,6 +11,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { cn } from '../../lib/utils';
 import { ChatAssistant } from '../ChatAssistant';
 import { Logo } from '../Logo';
+import { LanguageSelector } from '../LanguageSelector';
 
 export function MainLayout() {
   const { currentUser, logout: storeLogout } = useAppStore();
@@ -89,14 +90,16 @@ export function MainLayout() {
           </span>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <span style={{
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: 9, letterSpacing: '.12em', textTransform: 'uppercase',
             color: 'rgba(255,255,255,.28)',
           }}>SIH26101 &middot; MoSPI</span>
 
-          <button style={{ color: 'rgba(255,255,255,.40)', position: 'relative', background: 'none', border: 'none', cursor: 'pointer', padding: 4 }}>
+          <LanguageSelector variant="header" />
+
+          <button style={{ color: 'rgba(255,255,255,.40)', position: 'relative', background: 'none', border: 'none', cursor: 'pointer', padding: 4 }} title="Notifications">
             <Bell size={16} />
             <span style={{ position: 'absolute', top: 2, right: 2, width: 6, height: 6, background: '#F43F5E', borderRadius: '50%', outline: '2px solid #0A0A0A' }} />
           </button>

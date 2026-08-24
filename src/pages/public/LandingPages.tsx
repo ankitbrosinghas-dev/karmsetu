@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../../store/useStore';
 import { useAuth } from '../../contexts/AuthContext';
 import { ChevronRight } from 'lucide-react';
+import { LanguageSelector } from '../../components/LanguageSelector';
 
 /* ─────────────────────────────────────────────────────────────────
    UTILITIES
@@ -482,11 +483,12 @@ export function LandingPage() {
             <img src="/logo.png" alt="KarmSetu Logo" style={{ width: 28, height: 28, objectFit: 'contain', borderRadius: 4 }} />
             <span>Karm<span>Setu</span></span>
           </a>
-          <div className="ks-navlinks">
+          <div className="ks-navlinks" style={{ display: 'flex', alignItems: 'center', gap: 'clamp(12px, 2vw, 24px)' }}>
             <span className="ks-nl" onClick={() => scrollTo('ks-engine')}>Platform</span>
             <span className="ks-nl" onClick={() => scrollTo('ks-engine')}>The Loop</span>
             <span className="ks-nl" onClick={() => scrollTo('ks-stats')}>For ISS</span>
             <span className="ks-nl" onClick={() => scrollTo('ks-faq')}>Contact</span>
+            <LanguageSelector variant="landing" />
             <button className="ks-btn ks-bp" style={{padding:'8px 18px'}} onClick={goLogin}>Request a Demo</button>
           </div>
         </div>
@@ -692,7 +694,11 @@ export function LoginPage() {
   const mono = { fontFamily: "'JetBrains Mono', monospace", fontWeight: 300, letterSpacing: '.10em', textTransform: 'uppercase' as const };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0A0A0A', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24, fontFamily: "'Inter', sans-serif" }}>
+    <div style={{ minHeight: '100vh', background: '#0A0A0A', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24, fontFamily: "'Inter', sans-serif", position: 'relative' }}>
+      <div style={{ position: 'absolute', top: 20, right: 24, zIndex: 10 }}>
+        <LanguageSelector variant="landing" />
+      </div>
+
       <div style={{
         width: '100%', maxWidth: 440, background: '#0F0F11',
         border: '1px solid rgba(255,255,255,.08)',

@@ -472,6 +472,54 @@
       *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
     }
 
+    /* ── LANGUAGE SELECTOR & GOOGLE TRANSLATE RESET ──────────────── */
+    .goog-te-banner-frame, iframe.goog-te-banner-frame, .goog-te-banner-frame.skiptranslate, #goog-gt-tt, .goog-te-balloon-frame {
+      display: none !important;
+      visibility: hidden !important;
+    }
+    body { top: 0px !important; position: static !important; }
+    .skiptranslate > iframe { display: none !important; }
+    .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
+
+    .lang-dropdown-container { position: relative; display: inline-block; }
+    .lang-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 12px; background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 4px;
+      color: #FFFFFF; cursor: pointer;
+      font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      letter-spacing: 0.06em; transition: all 0.2s cubic-bezier(0.16,1,0.3,1);
+    }
+    .lang-btn:hover { border-color: rgba(99,102,241,0.5); background: rgba(99,102,241,0.08); }
+    .lang-menu {
+      position: absolute; top: calc(100% + 6px); right: 0;
+      width: 270px; max-height: 380px; background: #0D0D11;
+      border: 1px solid rgba(255,255,255,0.14); border-radius: 6px;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.6), 0 0 0 1px rgba(99,102,241,0.15);
+      z-index: 99999; overflow: hidden; display: none;
+      flex-direction: column; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    }
+    .lang-menu.open { display: flex; }
+    .lang-search-box {
+      padding: 10px 12px 8px; border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+    }
+    .lang-search-input {
+      width: 100%; background: #141418; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px; padding: 6px 9px; color: #FFFFFF; font-size: 11px;
+      font-family: 'Inter', sans-serif; outline: none;
+    }
+    .lang-search-input:focus { border-color: rgba(99,102,241,0.6); }
+    .lang-list { overflow-y: auto; padding: 4px; max-height: 250px; }
+    .lang-item {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 10px; background: transparent; border: none; border-radius: 4px;
+      color: rgba(255,255,255,0.7); cursor: pointer; text-align: left;
+      transition: all 0.15s; margin-bottom: 2px;
+    }
+    .lang-item:hover { background: rgba(255,255,255,0.05); color: #FFFFFF; }
+    .lang-item.selected { background: rgba(99,102,241,0.12); color: #FFFFFF; }
+
     /* ── RESPONSIVE NAV ─────────────────────────────────────────── */
     @media (max-width: 700px) { .nav-link { display: none; } }
   </style>
@@ -495,7 +543,32 @@
       <a href="#engine" class="nav-link">The Loop</a>
       <a href="#stats"  class="nav-link">For ISS</a>
       <a href="#faq"    class="nav-link">Contact</a>
-      <a href="/login"  class="btn btn-primary" style="padding:8px 18px;">Request a Demo</a>
+      
+      <!-- Language Selector -->
+      <div class="lang-dropdown-container notranslate" id="landing-lang-container">
+        <div id="google_translate_element" style="display:none;"></div>
+        <button class="lang-btn" id="lang-btn" aria-haspopup="listbox" aria-expanded="false" title="Select Language / भाषा चुनें">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          <span id="lang-btn-text">English</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="lang-menu" id="lang-menu">
+          <div class="lang-search-box">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:6px;display:flex;justify-content:space-between;">
+              <span>Indian Languages</span>
+              <span style="color:#6366F1;">Top 10</span>
+            </div>
+            <input type="text" id="lang-search" class="lang-search-input" placeholder="Search language / खोजें..." />
+          </div>
+          <div class="lang-list" id="lang-list"></div>
+          <div style="padding:6px 10px;border-top:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.3);font-size:9px;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,0.3);display:flex;justify-content:space-between;">
+            <span>Official Language Support</span>
+            <span style="color:#6366F1;">MoSPI &middot; ISS</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="/login" class="btn btn-primary" style="padding:8px 18px;">Request a Demo</a>
     </div>
   </div>
 </nav>
@@ -1003,6 +1076,141 @@ void main(){
       else{if(animId){cancelAnimationFrame(animId);animId=null;}}
     });
   },{threshold:.05}).observe(document.getElementById('spectrum-section')||cv);
+})();
+
+/* ── TOP 10 INDIAN LANGUAGES SELECTOR ───────────────────────── */
+(function(){
+  const TOP_LANGS = [
+    { code: 'en', name: 'English', nativeName: 'English', region: 'Default' },
+    { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी', region: 'Northern & Central India' },
+    { code: 'bn', name: 'Bengali', nativeName: 'বাংলা', region: 'West Bengal & Northeast' },
+    { code: 'mr', name: 'Marathi', nativeName: 'मराठी', region: 'Maharashtra' },
+    { code: 'te', name: 'Telugu', nativeName: 'తెలుగు', region: 'Andhra Pradesh & Telangana' },
+    { code: 'ta', name: 'Tamil', nativeName: 'தமிழ்', region: 'Tamil Nadu & Puducherry' },
+    { code: 'gu', name: 'Gujarati', nativeName: 'ગુજરાતી', region: 'Gujarat' },
+    { code: 'ur', name: 'Urdu', nativeName: 'اردو', region: 'Pan-India & Telangana/UP' },
+    { code: 'kn', name: 'Kannada', nativeName: 'ಕನ್ನಡ', region: 'Karnataka' },
+    { code: 'or', name: 'Odia', nativeName: 'ଓଡ଼ିଆ', region: 'Odisha' },
+    { code: 'pa', name: 'Punjabi', nativeName: 'ਪੰਜਾਬੀ', region: 'Punjab & Delhi NCR' },
+  ];
+
+  let currentLang = localStorage.getItem('karmsetu_language') || 'en';
+
+  const btn = document.getElementById('lang-btn');
+  const btnText = document.getElementById('lang-btn-text');
+  const menu = document.getElementById('lang-menu');
+  const searchInput = document.getElementById('lang-search');
+  const list = document.getElementById('lang-list');
+  const container = document.getElementById('landing-lang-container');
+
+  function updateBtn() {
+    const cur = TOP_LANGS.find(l => l.code === currentLang) || TOP_LANGS[0];
+    if (btnText) {
+      btnText.innerHTML = cur.code === 'en' 
+        ? 'English' 
+        : `${cur.nativeName} <span style="opacity:0.65;font-size:9px;margin-left:3px;">(${cur.name})</span>`;
+    }
+  }
+
+  function renderList(query = '') {
+    if (!list) return;
+    list.innerHTML = '';
+    const q = query.toLowerCase().trim();
+    const filtered = TOP_LANGS.filter(l => 
+      l.name.toLowerCase().includes(q) || 
+      l.nativeName.toLowerCase().includes(q) || 
+      (l.region && l.region.toLowerCase().includes(q))
+    );
+
+    if (filtered.length === 0) {
+      list.innerHTML = '<div style="padding:16px 12px;text-align:center;color:rgba(255,255,255,0.35);font-size:11px;font-family:\'JetBrains Mono\',monospace;">No matching language found</div>';
+      return;
+    }
+
+    filtered.forEach(l => {
+      const isSel = l.code === currentLang;
+      const item = document.createElement('button');
+      item.className = 'lang-item' + (isSel ? ' selected' : '');
+      item.innerHTML = `
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="font-size:13px;font-weight:${isSel ? '500' : '400'};">${l.nativeName}</span>
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,0.4);">${l.name}</span>
+          </div>
+          ${l.region ? `<span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,0.3);letter-spacing:0.04em;">${l.region}</span>` : ''}
+        </div>
+        ${isSel ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>' : ''}
+      `;
+      item.onclick = (e) => {
+        e.stopPropagation();
+        selectLanguage(l.code);
+      };
+      list.appendChild(item);
+    });
+  }
+
+  function selectLanguage(code) {
+    currentLang = code;
+    localStorage.setItem('karmsetu_language', code);
+    updateBtn();
+    if (menu) menu.classList.remove('open');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+
+    const cookieValue = `/en/${code}`;
+    document.cookie = `googtrans=${cookieValue}; path=/;`;
+    document.cookie = `googtrans=${cookieValue}; domain=.${window.location.hostname}; path=/;`;
+
+    const selectElem = document.querySelector('.goog-te-combo');
+    if (selectElem) {
+      selectElem.value = code;
+      selectElem.dispatchEvent(new Event('change'));
+    } else {
+      window.location.reload();
+    }
+  }
+
+  if (btn && menu) {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      const isOpen = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (isOpen && searchInput) {
+        searchInput.value = '';
+        renderList('');
+        setTimeout(() => searchInput.focus(), 50);
+      }
+    };
+
+    if (searchInput) {
+      searchInput.oninput = (e) => {
+        renderList(e.target.value);
+      };
+    }
+
+    document.addEventListener('click', (e) => {
+      if (container && !container.contains(e.target)) {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  updateBtn();
+  renderList();
+
+  // Load Google Translate Widget
+  window.googleTranslateElementInit = function() {
+    new window.google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,hi,bn,mr,te,ta,gu,ur,kn,or,pa',
+      autoDisplay: false
+    }, 'google_translate_element');
+  };
+
+  const gtScript = document.createElement('script');
+  gtScript.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+  gtScript.async = true;
+  document.body.appendChild(gtScript);
 })();
 
 /* ── SCROLL REVEALS ──────────────────────────────────────────── */
